@@ -11,6 +11,11 @@ export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
 
     return (
         <div className="page-container">
+            <div className="post-item-header">
+                <h1>Title</h1>
+                <h1>Author</h1>
+                <h1>Category</h1>
+            </div>
             {allPosts.map((post) => {
                 const publicationDate = new Date(post.publicationDate)
                 return post.approved && publicationDate < today ? (
