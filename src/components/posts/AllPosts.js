@@ -1,4 +1,4 @@
-import "./posts.css"
+import "./AllPosts.css"
 export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
 
     const sortedPosts = allPosts.sort((a, b) => {
