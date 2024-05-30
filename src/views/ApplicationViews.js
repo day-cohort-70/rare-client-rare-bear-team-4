@@ -6,11 +6,13 @@ import { TagManager } from "../components/Tags/TagManager.js"
 import { CategoryList } from "../categories/CategoryList.js"
 import { AllPosts } from "../components/posts/AllPosts"
 import React, { useEffect, useState } from "react"
-import { getAllPosts } from "../managers/PostManager"
+import { getAllPosts, getUserPosts } from "../managers/PostManager"
+import { UserPosts } from "../components/posts/UserPosts.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
 
   const [allPosts, setAllPosts] = useState([])
+  const [userPosts, setUserPosts] = useState([])
 
   //get all posts with useEffect below
   const getAndSetAllPosts = async () => {
@@ -19,6 +21,14 @@ export const ApplicationViews = ({ token, setToken }) => {
   useEffect(() => {
     getAndSetAllPosts()
   }, [])
+  
+  //get all posts with useEffect below
+  const getAndSetUserPosts = async () => {
+    await getUserPosts(token).then(res => setUserPosts(res))
+  }
+  useEffect(() => {
+    getAndSetUserPosts()
+  }, [token])
 
   return <>
     <Routes>
@@ -27,6 +37,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/register" element={<Register setToken={setToken} />}  />
       <Route element={<Authorized token={token} />}>
         <Route path="/posts" element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>} />
+        <Route path="/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
         <Route path="/tag-manager" element={<TagManager setToken={setToken} />}  />
         <Route path="/categories" element={<CategoryList />}  />
       </Route>
