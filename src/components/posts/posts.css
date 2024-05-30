@@ -1,0 +1,12 @@
+.post-item-header,
+.post-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.post-item-header {
+  font-size: x-large;
+}
+  
