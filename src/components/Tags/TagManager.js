@@ -16,7 +16,14 @@ export const TagManager = () => {
         const newPost = {
             label: newLabel
         };
-        await saveTagToDatabase(newPost).then ()
+        const savedTag = await saveTagToDatabase(newPost);
+        if (savedTag) {
+            setNewLabel("");
+            // Fetch the updated list of tags and update the state
+            const updatedTags = await getAllTags();
+            setAllTags(updatedTags);
+        }
+
     }
 
 return (
