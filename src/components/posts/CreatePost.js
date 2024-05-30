@@ -21,13 +21,13 @@ export const CreatePost = ({ token }) => {
         e.preventDefault();
         
         const newPost = {
-            title: title, // Explicitly assign the title key to the title state value
-            content: content, // Explicitly assign the content key to the content state value
-            category_id: parseInt(category), // Explicitly assign the category_id key to the parsed category state value
-            publication_date: new Date().toISOString().split('T')[0], // Explicitly assign the publication_date key to the current date
-            image_url: imageUrl, // Explicitly assign the image_url key to the imageUrl state value
-            approved: 1, // Explicitly set the approved key to 1
-            user_id: parseInt(token) // Explicitly assign the user_id key to the userId from the token
+            title: title, 
+            content: content, 
+            category_id: parseInt(category), 
+            publication_date: new Date().toISOString().split('T')[0], 
+            image_url: imageUrl, 
+            approved: 1, 
+            user_id: parseInt(token) 
         };
         
         const savedPost = await postPost(newPost);
