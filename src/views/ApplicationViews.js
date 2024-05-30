@@ -8,6 +8,7 @@ import { AllPosts } from "../components/posts/AllPosts"
 import React, { useEffect, useState } from "react"
 import { getAllPosts, getUserPosts } from "../managers/PostManager"
 import { UserPosts } from "../components/posts/UserPosts.js"
+import { CreatePost } from "../components/posts/CreatePost.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
 
@@ -20,6 +21,7 @@ export const ApplicationViews = ({ token, setToken }) => {
   }
   useEffect(() => {
     getAndSetAllPosts()
+
   }, [])
   
   //get all posts with useEffect below
@@ -40,6 +42,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
         <Route path="/tag-manager" element={<TagManager setToken={setToken} />}  />
         <Route path="/categories" element={<CategoryList />}  />
+        <Route path="/newpost" element={<CreatePost token={token}/>}  />
       </Route>
     </Routes>
   </>
