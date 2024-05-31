@@ -29,7 +29,14 @@ export const PostDetails = ({token }) => {
             <section className="post">
                 <header className="post-header">Title : {post?.title}</header>
                 <div><span className="post-info">Author's Display Name : </span>{poster?.username}</div>
-                <div><span className="post-info">Header image : </span>{post?.image_url}</div>
+                <div>
+                <span className="post-info">Header image : </span>
+                {post?.imageUrl? (
+                    <img src={post.imageUrl} alt="Image link not working?" />
+                ) : (
+                    "No image available"
+                )}
+                </div>
                 <div><span className="post-info">Publication date : </span>{post?.publicationDate}</div>
                 <div><span className="post-info">Post content : </span>{post?.content}</div>
                 <div>
