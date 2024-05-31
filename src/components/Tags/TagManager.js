@@ -3,8 +3,7 @@ import { useEffect, useState } from "react"
 import { saveTagToDatabase } from "../../managers/TagService.js"
 import "./tagManager.css"
 
-export const TagManager = () => {
-    const [allTags, setAllTags] = useState([])
+export const TagManager = ({allTags, setAllTags}) => {
     const [newLabel, setNewLabel] = useState("")
 
     useEffect(() => {

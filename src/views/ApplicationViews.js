@@ -11,7 +11,7 @@ import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
-
+  const [allTags, setAllTags] = useState([])
   const [allPosts, setAllPosts] = useState([])
   const [userPosts, setUserPosts] = useState([])
 
@@ -40,7 +40,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route element={<Authorized token={token} />}>
         <Route path="/posts" element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>} />
         <Route path="/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
-        <Route path="/tag-manager" element={<TagManager setToken={setToken} />}  />
+        <Route path="/tag-manager" element={<TagManager setToken={setToken} allTags={allTags} setAllTags={setAllTags}/>}  />
         <Route path="/categories" element={<CategoryList />}  />
         <Route path="/newpost" element={<CreatePost token={token}/>}  />
       </Route>
