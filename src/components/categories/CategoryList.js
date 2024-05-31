@@ -16,27 +16,31 @@ export const CategoryList = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     const newPost = {
-        label: newLabel
+      label: newLabel
     };
     const savedCategory = await saveCategoriesToDatabase(newPost);
     if (savedCategory) {
-        setNewLabel("");
-        // Fetch the updated list of tags and update the state
-        const updatedCategories = await getAllCategories();
-        setCategories(updatedCategories);
+      setNewLabel("");
+      // Fetch the updated list of tags and update the state
+      const updatedCategories = await getAllCategories();
+      setCategories(updatedCategories);
+      // Reload the page after updating the state
+      window.location.reload();
     }
-}
+  }  
 
-const handleDelete = (category) => {
-  if (window.confirm('Are you sure you want to delete the "'+category.label+'" category?')) {
-    deleteCategory(category.id).then(() => {
-      // After successfully deleting the category, refresh the categories list
-      getAllCategories().then(setCategories);
-    }).catch(error => {
-      console.error("Failed to delete category:", error);
-    });
+  const handleDelete = (category) => {
+    if (window.confirm('Are you sure you want to delete the "'+category.label+'" category?')) {
+      deleteCategory(category.id).then(() => {
+        // After successfully deleting the category, refresh the categories list
+        getAllCategories().then(setCategories);
+        // Reload the page after updating the state
+        window.location.reload();
+      }).catch(error => {
+        console.error("Failed to delete category:", error);
+      });
     }
-  }
+  }  
 
   return (
     <div className='full-page'>
