@@ -25,7 +25,7 @@ export const ApplicationViews = ({ token, setToken }) => {
     getAndSetAllPosts()
 
   }, [])
-  
+
   //get all posts with useEffect below
   const getAndSetUserPosts = async () => {
     await getUserPosts(token).then(res => setUserPosts(res))
@@ -36,22 +36,22 @@ export const ApplicationViews = ({ token, setToken }) => {
 
   return <>
     <Routes>
-      
-      <Route path="/login" element={<Login setToken={setToken} />}  />
-      <Route path="/register" element={<Register setToken={setToken} />}  />
+
+      <Route path="/login" element={<Login setToken={setToken} />} />
+      <Route path="/register" element={<Register setToken={setToken} />} />
       <Route element={<Authorized token={token} />}>
 
         <Route path="/posts">
-          <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
-          <Route path="/posts/:postId" element={<PostDetails token={token}/>}/>
-          <Route path="Edit/:postId" element={<Authorized token={token} />}/>
-          <Route path="/posts/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
+          <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts} />} />
+          <Route path="/posts/:postId" element={<PostDetails token={token} />} />
+          <Route path="Edit/:postId" element={<Authorized token={token} />} />
+          <Route path="/posts/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts} />} />
         </Route>
-        
-        <Route path="/tag-manager" element={<TagManager setToken={setToken} />}  />
-        <Route path="/categories" element={<CategoryList />}  />
-        <Route path="/newpost" element={<CreatePost token={token}/>}  />
-        
+
+        <Route path="/tag-manager" element={<TagManager setToken={setToken} />} />
+        <Route path="/categories" element={<CategoryList />} />
+        <Route path="/newpost" element={<CreatePost token={token} />} />
+
       </Route>
     </Routes>
   </>
