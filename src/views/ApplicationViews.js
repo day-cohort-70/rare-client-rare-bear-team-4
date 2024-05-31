@@ -10,6 +10,8 @@ import { getAllPosts, getUserPosts } from "../managers/PostManager"
 import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
 import { PostDetails } from "../components/posts/PostDetails.js"
+import { CreatePostTags } from "../components/PostTags/CreatePostTags.js"
+import { getAllTags } from "../managers/TagService.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
   const [allTags, setAllTags] = useState([])
@@ -22,16 +24,19 @@ export const ApplicationViews = ({ token, setToken }) => {
   }
   useEffect(() => {
     getAndSetAllPosts()
-
   }, [])
   
-  //get all posts with useEffect below
+  //get all user posts with useEffect below
   const getAndSetUserPosts = async () => {
     await getUserPosts(token).then(res => setUserPosts(res))
   }
   useEffect(() => {
     getAndSetUserPosts()
   }, [token])
+
+  useEffect(() => {
+    getAllTags({}).then((data) => { setAllTags(data) })
+  }, []);
 
   return <>
     <Routes>
@@ -42,7 +47,10 @@ export const ApplicationViews = ({ token, setToken }) => {
 
         <Route path="/posts">
           <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
-          <Route path="/posts/:postId" element={<PostDetails token={token}/>}/>
+          <Route path="/posts/:postId" >
+            <Route index element={<PostDetails token={token}/>}/>
+            <Route path="/posts/:postId/post-tags" element={<CreatePostTags allTags={allTags}/>}/>
+          </Route>
           <Route path="Edit/:postId" element={<Authorized token={token} />}/>
           <Route path="/posts/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
         </Route>

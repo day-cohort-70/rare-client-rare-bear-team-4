@@ -1,0 +1,15 @@
+.page-container {
+    margin: 50px;
+}
+
+.tag-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.tag-list-container label {
+    margin-bottom: 10px; 
+    display: flex; 
+    align-items: center;
+}

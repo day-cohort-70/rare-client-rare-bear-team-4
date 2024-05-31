@@ -6,9 +6,7 @@ import "./tagManager.css"
 export const TagManager = ({allTags, setAllTags}) => {
     const [newLabel, setNewLabel] = useState("")
 
-    useEffect(() => {
-        getAllTags({}).then((data) => { setAllTags(data) })
-    }, []);
+
 
     const handleSave = async (e) => {
         e.preventDefault();

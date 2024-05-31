@@ -1,30 +1,46 @@
+import { useParams } from "react-router-dom";
+import "./posttags.css"
+import { useState } from "react"
 
 export const CreatePostTags = ({ allTags }) => {
+    const { postId } = useParams();
+    const [selectedTagIds, setSelectedTagIds] = useState([])
 
-    const [selectedTags, setSelectedTags] = useState([])
+    const handleChange = (event) => {
+        const { name, checked } = event.target;
+        setSelectedTagIds(prevSelectedTagIds => {
+            if (checked) {
+                // Add tag to selectedTags array
+                return [...prevSelectedTagIds, name];
+            } else {
+                // Remove tag from selectedTags array
+                return prevSelectedTagIds.filter(tag => tag !== name);
+            }
+        });
+    };
 
-    const handleChange = () => {
-        return "changed"
-    }
-
-    const handleSubmit = () => {
-        return "submitted"
-    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(selectedTagIds);
+        // Handle form submission
+    };
 
     return (
         <div className="page-container">
             <div className="tag-list-container">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     {allTags.map((tag) => {
-                        <label>
-                        <input
-                            type="checkbox"
-                            name={tag.label}
-                            checked={selectedTags.tag.label}
-                            onChange={handleChange}
+                        return (
+                            <label key={tag.id}>
+                            <input
+                              type="checkbox"
+                              name={tag.id}
+                              checked={selectedTagIds.includes(String(tag.id))}
+                              onChange={handleChange}
                             />
-                        Item 1
-                        </label>
+                            {tag.label}
+                          </label>
+                        )
                     })}
                     <button type="submit">Submit</button>
                 </form>
