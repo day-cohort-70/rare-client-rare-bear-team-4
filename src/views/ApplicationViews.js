@@ -9,6 +9,8 @@ import { getAllPosts, getUserPosts } from "../managers/PostManager"
 import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
 import { CategoryList } from "../components/categories/CategoryList.js"
+import { PostDetails } from "../components/posts/PostDetails.js"
+
 
 export const ApplicationViews = ({ token, setToken }) => {
 
@@ -38,11 +40,18 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/login" element={<Login setToken={setToken} />}  />
       <Route path="/register" element={<Register setToken={setToken} />}  />
       <Route element={<Authorized token={token} />}>
-        <Route path="/posts" element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>} />
-        <Route path="/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
+
+        <Route path="/posts">
+          <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
+          <Route path="/posts/:postId" element={<PostDetails token={token}/>}/>
+          <Route path="Edit/:postId" element={<Authorized token={token} />}/>
+          <Route path="/posts/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
+        </Route>
+        
         <Route path="/tag-manager" element={<TagManager setToken={setToken} />}  />
         <Route path="/categories" element={<CategoryList />}  />
         <Route path="/newpost" element={<CreatePost token={token}/>}  />
+        
       </Route>
     </Routes>
   </>
