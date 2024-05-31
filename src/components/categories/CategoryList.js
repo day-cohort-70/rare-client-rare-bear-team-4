@@ -39,7 +39,7 @@ export const CategoryList = () => {
       </div>
       <section className="leftSection">
                 <form className="create-post-form" onSubmit={handleSave}>
-                    <h2 className="card-title">Create New Tag</h2>
+                    <h2 className="card-title">Create New Category</h2>
                     <div className="form-group">
                         <label></label>
                         <input type="text" value={newLabel} onChange={(event) => setNewLabel(event.target.value)} required />
