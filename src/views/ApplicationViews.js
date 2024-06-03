@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react"
 import { getAllPosts, getUserPosts } from "../managers/PostManager"
 import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
-import { CategoryList } from "../components/categories/CategoryList.js"
+import { CategoryList } from "../categories/CategoryList.js"
 import { PostDetails } from "../components/posts/PostDetails.js"
 import { CreatePostTags } from "../components/PostTags/CreatePostTags.js"
 import { getAllTags } from "../managers/TagService.js"
@@ -40,9 +40,9 @@ export const ApplicationViews = ({ token, setToken }) => {
 
   return <>
     <Routes>
-      
-      <Route path="/login" element={<Login setToken={setToken} />}  />
-      <Route path="/register" element={<Register setToken={setToken} />}  />
+
+      <Route path="/login" element={<Login setToken={setToken} />} />
+      <Route path="/register" element={<Register setToken={setToken} />} />
       <Route element={<Authorized token={token} />}>
 
         <Route path="/posts">
@@ -52,7 +52,7 @@ export const ApplicationViews = ({ token, setToken }) => {
             <Route path="/posts/:postId/post-tags" element={<CreatePostTags allTags={allTags}/>}/>
           </Route>
           <Route path="Edit/:postId" element={<Authorized token={token} />}/>
-          <Route path="/posts/myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
+          <Route path="myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
         </Route>
         
         <Route path="/tag-manager" element={<TagManager setToken={setToken} allTags={allTags} setAllTags={setAllTags}/>}  />
