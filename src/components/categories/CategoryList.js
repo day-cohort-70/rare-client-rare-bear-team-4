@@ -1,6 +1,6 @@
 // CategoryList.js
 import React, { useEffect, useState } from 'react';
-import { deleteCategory, getAllCategories, saveCategoriesToDatabase } from '../managers/CategoryManager';
+import { deleteCategory, getAllCategories, saveCategoriesToDatabase } from '../../managers/CategoryManager';
 import './CategoryList.css';
 
 export const CategoryList = () => {

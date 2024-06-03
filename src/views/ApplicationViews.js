@@ -8,8 +8,8 @@ import React, { useEffect, useState } from "react"
 import { getAllPosts, getUserPosts } from "../managers/PostManager"
 import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
-import { CategoryList } from "../categories/CategoryList.js"
 import { PostDetails } from "../components/posts/PostDetails.js"
+import { CategoryList } from "../components/categories/CategoryList.js"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
