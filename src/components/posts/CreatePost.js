@@ -32,8 +32,9 @@ export const CreatePost = ({ token }) => {
         
         const savedPost = await postPost(newPost);
     console.log(savedPost)
+    
         if (savedPost) {
-            navigate(`/posts`);
+            navigate(`/posts/${savedPost.new_post_id}`);
         }
     };
 
