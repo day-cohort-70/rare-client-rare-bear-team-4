@@ -1,6 +1,12 @@
 /* CategoryList.css */
+.full-page{
+  display: flex;
+  justify-content: space-around;
+}
+
 .category-list {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;

@@ -18,5 +18,51 @@ export const postPost = async (post) => {
 };
 
 export const getPostByPostId = (postId) => {
-    return fetch(`http://localhost:8088/posts?id=${postId}`).then((res) => res.json())
+    return fetch(`http://localhost:8088/posts/${postId}`).then((res) => res.json())
+}
+
+
+export const deletePost = async (postId) => {
+    const url = `http://localhost:8088/posts/${postId}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.ok) {
+            console.log(`Post with ID ${postId} has been successfully deleted.`);
+        } else {
+            console.error(`Failed to delete post with ID ${postId}. Status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(`Error occurred while deleting post with ID ${postId}:`, error);
+    }
+}
+
+
+export const updatePost = async (postId, postData) => {
+    const url = `http://localhost:8088/posts/${postId}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+        });
+
+        if (response.ok) {
+            const updatedPost = await response.json();
+            console.log(`Post with ID ${postId} has been successfully updated.`, updatedPost);
+        } else {
+            console.error(`Failed to update post with ID ${postId}. Status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(`Error occurred while updating post with ID ${postId}:`, error);
+    }
 }
