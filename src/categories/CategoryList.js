@@ -1,6 +1,6 @@
 // CategoryList.js
 import React, { useEffect, useState } from 'react';
-import { getAllCategories, saveCategoriesToDatabase } from '../../managers/CategoryManager';
+import { deleteCategory, getAllCategories, saveCategoriesToDatabase } from '../managers/CategoryManager';
 import './CategoryList.css';
 
 export const CategoryList = () => {
@@ -16,26 +16,44 @@ export const CategoryList = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     const newPost = {
-        label: newLabel
+      label: newLabel
     };
     const savedCategory = await saveCategoriesToDatabase(newPost);
     if (savedCategory) {
-        setNewLabel("");
-        // Fetch the updated list of tags and update the state
-        const updatedCategories = await getAllCategories();
-        setCategories(updatedCategories);
+      setNewLabel("");
+      // Fetch the updated list of tags and update the state
+      const updatedCategories = await getAllCategories();
+      setCategories(updatedCategories);
+      // Reload the page after updating the state
+      window.location.reload();
     }
+  }  
 
-}
+  const handleDelete = (category) => {
+    if (window.confirm('Are you sure you want to delete the "'+category.label+'" category?')) {
+      deleteCategory(category.id).then(() => {
+        // After successfully deleting the category, refresh the categories list
+        getAllCategories().then(setCategories);
+        // Reload the page after updating the state
+        window.location.reload();
+      }).catch(error => {
+        console.error("Failed to delete category:", error);
+      });
+    }
+  }  
 
   return (
     <div className='full-page'>
       <div className="category-list">
-        {categories.map((category) => (
-          <div key={category.id} className="category-card">
-            <h2>{category.label}</h2>
-          </div>
-        ))}
+      {categories.map((category) => (
+        <div key={category.id} className="category-card">
+        <h2>{category.label}</h2>
+        <button className="btn-delete" onClick={() => handleDelete(category)}>
+          {'delete'}
+        </button>
+      </div>
+      ))}
+
       </div>
       <section className="leftSection">
                 <form className="create-post-form" onSubmit={handleSave}>
