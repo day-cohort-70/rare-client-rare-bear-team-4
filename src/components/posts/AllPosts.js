@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import "./posts.css"
+
+
 export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
 
     const sortedPosts = allPosts.sort((a, b) => {
@@ -8,6 +11,11 @@ export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
     })
     const today = new Date()
     today.setHours(0, 0, 0, 0)
+    let navigate = useNavigate()
+
+    const handleClick = (postId) => {
+        navigate(`/posts/${postId}`); 
+    };
 
     return (
         <div className="page-container">
@@ -19,7 +27,7 @@ export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
             {allPosts.map((post) => {
                 const publicationDate = new Date(post.publicationDate)
                 return post.approved && publicationDate < today ? (
-                    <div key={post.id} className="post-item">
+                    <div key={post.id} className="post-item" onClick={() => handleClick(post.id)}>
                         <h2>{post.title}</h2>
                         <h2>{post.user.userFirstName} {post.user.userLastName}</h2>
                         <h2>{post.category.categoryLabel}</h2>
