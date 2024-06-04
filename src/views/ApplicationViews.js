@@ -10,10 +10,11 @@ import { UserPosts } from "../components/posts/UserPosts.js"
 import { CreatePost } from "../components/posts/CreatePost.js"
 import { PostDetails } from "../components/posts/PostDetails.js"
 import { CategoryList } from "../components/categories/CategoryList.js"
-
+import { CreatePostTags } from "../components/PostTags/CreatePostTags.js"
+import { getAllTags } from "../managers/TagService.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
-
+  const [allTags, setAllTags] = useState([])
   const [allPosts, setAllPosts] = useState([])
   const [userPosts, setUserPosts] = useState([])
 
@@ -23,16 +24,19 @@ export const ApplicationViews = ({ token, setToken }) => {
   }
   useEffect(() => {
     getAndSetAllPosts()
-
   }, [])
-
-  //get all posts with useEffect below
+  
+  //get all user posts with useEffect below
   const getAndSetUserPosts = async () => {
     await getUserPosts(token).then(res => setUserPosts(res))
   }
   useEffect(() => {
     getAndSetUserPosts()
   }, [token])
+
+  useEffect(() => {
+    getAllTags({}).then((data) => { setAllTags(data) })
+  }, []);
 
   return <>
     <Routes>
@@ -43,15 +47,18 @@ export const ApplicationViews = ({ token, setToken }) => {
 
         <Route path="/posts">
           <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
-          <Route path=":postId" element={<PostDetails token={token}/>}/>
+          <Route path=":postId" >
+            <Route index element={<PostDetails token={token}/>}/>
+            <Route path="post-tags" element={<CreatePostTags allTags={allTags}/>}/>
+          </Route>
           <Route path="Edit/:postId" element={<Authorized token={token} />}/>
           <Route path="myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
         </Route>
-
-        <Route path="/tag-manager" element={<TagManager setToken={setToken} />} />
-        <Route path="/categories" element={<CategoryList />} />
-        <Route path="/newpost" element={<CreatePost token={token} />} />
-
+        
+        <Route path="/tag-manager" element={<TagManager setToken={setToken} allTags={allTags} setAllTags={setAllTags}/>}  />
+        <Route path="/categories" element={<CategoryList />}  />
+        <Route path="/newpost" element={<CreatePost token={token}/>}  />
+        
       </Route>
     </Routes>
   </>
