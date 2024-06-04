@@ -1,22 +1,33 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./posttags.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { postNewPostTag } from "../../managers/PostTagManager";
+import { getPostPostTags } from "../../managers/PostTagManager";
 
 export const CreatePostTags = ({ allTags }) => {
     const { postId } = useParams();
     const [selectedTagIds, setSelectedTagIds] = useState([])
     const navigate = useNavigate()
 
+    useEffect(() => {
+        const getPostTags = async () => {
+            const response = await getPostPostTags(postId)
+            const tagIds = response.map(tag => tag.id)
+            setSelectedTagIds(tagIds)
+        }
+        getPostTags()
+    }, [postId])
+
     const handleChange = (event) => {
         const { name, checked } = event.target;
+        const tagId = parseInt(name)
         setSelectedTagIds(prevSelectedTagIds => {
             if (checked) {
                 // Add tag to selectedTags array
-                return [...prevSelectedTagIds, name];
+                return [...prevSelectedTagIds, tagId];
             } else {
                 // Remove tag from selectedTags array
-                return prevSelectedTagIds.filter(tag => tag !== name);
+                return prevSelectedTagIds.filter(tag => tag !== tagId);
             }
         });
     };
@@ -26,7 +37,7 @@ export const CreatePostTags = ({ allTags }) => {
         await Promise.all(selectedTagIds.map((tagId) => {
             const newPostTag = {
                 postId: parseInt(postId),
-                tagId: parseInt(tagId)
+                tagId: tagId
             }
             postNewPostTag(newPostTag)
         }))
@@ -42,8 +53,8 @@ export const CreatePostTags = ({ allTags }) => {
                             <label key={tag.id}>
                             <input
                               type="checkbox"
-                              name={tag.id}
-                              checked={selectedTagIds.includes(String(tag.id))}
+                              name={tag.id.toString()}
+                              checked={selectedTagIds.includes(tag.id)}
                               onChange={handleChange}
                             />
                             {tag.label}
