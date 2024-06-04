@@ -12,7 +12,7 @@ export const CreatePostTags = ({ allTags }) => {
     useEffect(() => {
         const getPostTags = async () => {
             const response = await getPostPostTags(postId)
-            const tagIds = response.map(tag => tag.id)
+            const tagIds = response.map(tag => tag.tagId)
             setSelectedTagIds(tagIds)
         }
         getPostTags()
