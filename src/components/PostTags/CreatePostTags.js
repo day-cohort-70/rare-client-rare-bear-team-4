@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./posttags.css"
 import { useState } from "react"
+import { postNewPostTag } from "../../managers/PostTagManager";
 
 export const CreatePostTags = ({ allTags }) => {
     const { postId } = useParams();
     const [selectedTagIds, setSelectedTagIds] = useState([])
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         const { name, checked } = event.target;
@@ -19,10 +21,16 @@ export const CreatePostTags = ({ allTags }) => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(selectedTagIds);
-        // Handle form submission
+        await Promise.all(selectedTagIds.map((tagId) => {
+            const newPostTag = {
+                postId: parseInt(postId),
+                tagId: parseInt(tagId)
+            }
+            postNewPostTag(newPostTag)
+        }))
+        navigate(`/posts/${postId}`)
     };
 
     return (

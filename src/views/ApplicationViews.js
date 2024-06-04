@@ -47,9 +47,9 @@ export const ApplicationViews = ({ token, setToken }) => {
 
         <Route path="/posts">
           <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
-          <Route path="/posts/:postId" >
+          <Route path=":postId" >
             <Route index element={<PostDetails token={token}/>}/>
-            <Route path="/posts/:postId/post-tags" element={<CreatePostTags allTags={allTags}/>}/>
+            <Route path="post-tags" element={<CreatePostTags allTags={allTags}/>}/>
           </Route>
           <Route path="Edit/:postId" element={<Authorized token={token} />}/>
           <Route path="myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
