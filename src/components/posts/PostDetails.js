@@ -9,14 +9,17 @@ export const PostDetails = ({token }) => {
     const [post, setPost] = useState({});
     const [poster, setPoster] = useState({});
     const [postPostTags, setPostPostTags] = useState([])
+
     const navigate = useNavigate()
 
+    //get and set this individual post
     useEffect(() => {
         getPostByPostId(postId).then((data) => {
             setPost(data);
         });
     }, [postId, token]);
 
+    //get the and set the user that posted this post
     useEffect(() => {
         getUserById(post.user_id).then((userObj) => {
             setPoster(userObj);
@@ -24,12 +27,12 @@ export const PostDetails = ({token }) => {
 
     }, [post]);
 
+    //get and set the post tags
     const getAndSetPostTags = async() => {
       await getPostPostTags(postId).then((res)=> {
         setPostPostTags(res)
       })
     }
-
     useEffect(() => {
       getAndSetPostTags()
     }, [post])
