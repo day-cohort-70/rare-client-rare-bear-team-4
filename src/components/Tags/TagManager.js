@@ -1,4 +1,4 @@
-import { getAllTags } from "../../managers/TagService.js";
+import { deleteTag, getAllTags } from "../../managers/TagService.js";
 import { useEffect, useState } from "react"
 import { saveTagToDatabase } from "../../managers/TagService.js"
 import "./tagManager.css"
@@ -6,6 +6,7 @@ import "./tagManager.css"
 export const TagManager = ({allTags, setAllTags}) => {
     const [newLabel, setNewLabel] = useState("")
 
+    
 
 
     const handleSave = async (e) => {
@@ -23,6 +24,19 @@ export const TagManager = ({allTags, setAllTags}) => {
 
     }
 
+    const handleDelete = (tag) => {
+        if (window.confirm('Are you sure you want to delete the "'+tag.label+'" category?')) {
+            deleteTag(tag.id).then(() => {
+            // After successfully deleting the category, refresh the categories list
+            getAllTags().then(setAllTags);
+            // Reload the page after updating the state
+            window.location.reload();
+          }).catch(error => {
+            console.error("Failed to delete category:", error);
+          });
+        }
+      }  
+
 return (
     <>
         <section className="header-of-page">
@@ -30,18 +44,21 @@ return (
         </section>
         <section className="fullPage">
 
-            <div className="allTagsList">
+            <div className="tag-list">
                 {allTags.map((item) => {
                     return (
-                        <li key={item.id}>
-                            {item.label}
-                        </li>
+                        <ul key={item.id} className="tag-card">
+                            <h2>{item.label}</h2>
+                            <button className="btn-delete" onClick={() => handleDelete(item)}>
+          {'delete'}</button>
+                        </ul>
                     );
                 })}
             </div>
             <section className="leftSection">
                 <form className="create-post-form" onSubmit={handleSave}>
                     <h2 className="card-title">Create New Tag</h2>
+                    
                     <div className="form-group">
                         <label></label>
                         <input type="text" value={newLabel} onChange={(event) => setNewLabel(event.target.value)} required />
