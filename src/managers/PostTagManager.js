@@ -9,7 +9,7 @@ export const postNewPostTag = async (postTagData) => {
 }
 
 export const getPostPostTags = async (postId) => {
-    return await fetch(`http://localhost:8088/post-tags/${postId}?_expand=tag`).then(res => res.json())
+    return await fetch(`http://localhost:8088/post-tags?_postId=${postId}&_expand=tag`).then(res => res.json())
 }
 
 export const getAllPostTags = async () => {

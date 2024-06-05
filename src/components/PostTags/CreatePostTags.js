@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./posttags.css"
 import { useEffect, useState } from "react"
-import { deletePostTag, getAllPostTags, postNewPostTag } from "../../managers/PostTagManager";
+import { deletePostTag, postNewPostTag } from "../../managers/PostTagManager";
 import { getPostPostTags } from "../../managers/PostTagManager";
 
 export const CreatePostTags = ({ allTags }) => {

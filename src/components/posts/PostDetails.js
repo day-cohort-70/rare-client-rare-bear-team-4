@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { deletePost, getPostByPostId } from "../../managers/PostManager.js";
 import { getUserById } from "../../managers/UserManager.js";
 import "./PostDetails.css"
-import { getAllPostTags, getPostPostTags } from "../../managers/PostTagManager.js";
+import { getPostPostTags } from "../../managers/PostTagManager.js";
 export const PostDetails = ({token }) => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
