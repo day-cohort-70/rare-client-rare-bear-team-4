@@ -3,20 +3,23 @@ import { useEffect, useState } from "react";
 import { deletePost, getPostByPostId } from "../../managers/PostManager.js";
 import { getUserById } from "../../managers/UserManager.js";
 import "./PostDetails.css"
-import { getPostPostTags } from "../../managers/PostTagManager.js";
+import { getAllPostTags, getPostPostTags } from "../../managers/PostTagManager.js";
 export const PostDetails = ({token }) => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [poster, setPoster] = useState({});
     const [postPostTags, setPostPostTags] = useState([])
+
     const navigate = useNavigate()
 
+    //get and set this individual post
     useEffect(() => {
         getPostByPostId(postId).then((data) => {
             setPost(data);
         });
     }, [postId, token]);
 
+    //get the and set the user that posted this post
     useEffect(() => {
         getUserById(post.user_id).then((userObj) => {
             setPoster(userObj);
@@ -24,12 +27,12 @@ export const PostDetails = ({token }) => {
 
     }, [post]);
 
+    //get and set the post tags
     const getAndSetPostTags = async() => {
       await getPostPostTags(postId).then((res)=> {
         setPostPostTags(res)
       })
     }
-
     useEffect(() => {
       getAndSetPostTags()
     }, [post])

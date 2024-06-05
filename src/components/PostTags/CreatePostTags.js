@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./posttags.css"
 import { useEffect, useState } from "react"
-import { postNewPostTag } from "../../managers/PostTagManager";
+import { deletePostTag, getAllPostTags, postNewPostTag } from "../../managers/PostTagManager";
 import { getPostPostTags } from "../../managers/PostTagManager";
 
 export const CreatePostTags = ({ allTags }) => {
     const { postId } = useParams();
     const [selectedTagIds, setSelectedTagIds] = useState([])
+    const [currentPostTags, setCurrentPostTags] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -14,9 +15,11 @@ export const CreatePostTags = ({ allTags }) => {
             const response = await getPostPostTags(postId)
             const tagIds = response.map(tag => tag.tagId)
             setSelectedTagIds(tagIds)
+            setCurrentPostTags(response)
         }
         getPostTags()
     }, [postId])
+
 
     const handleChange = (event) => {
         const { name, checked } = event.target;
@@ -34,14 +37,22 @@ export const CreatePostTags = ({ allTags }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await Promise.all(selectedTagIds.map((tagId) => {
-            const newPostTag = {
-                postId: parseInt(postId),
-                tagId: tagId
-            }
-            postNewPostTag(newPostTag)
-        }))
-        navigate(`/posts/${postId}`)
+        
+        const currentTagIds = currentPostTags.map(tag => tag.tagId);
+        const tagsToAdd = selectedTagIds.filter(tagId => !currentTagIds.includes(tagId));
+        const tagsToDelete = currentTagIds.filter(tagId => !selectedTagIds.includes(tagId));
+
+        await Promise.all(tagsToAdd.map(tagId => {
+            const newPostTag = { postId: parseInt(postId), tagId: tagId };
+            return postNewPostTag(newPostTag);
+        }));
+
+        await Promise.all(tagsToDelete.map(tagId => {
+            const postTagToDelete = currentPostTags.find(tag => tag.tagId === tagId);
+            return deletePostTag(postTagToDelete.id);
+        }));
+
+        navigate(`/posts/${postId}`);
     };
 
     return (
