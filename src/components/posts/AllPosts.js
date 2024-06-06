@@ -22,6 +22,9 @@ export const AllPosts = ({allPosts}) => {
 
     return (
         <div className="page-container">
+            <section className="header-of-page">
+  <h1>All Posts</h1>
+  </section>
             <div className="post-item-header">
                 <h1>Title</h1>
                 <h1>Author</h1>

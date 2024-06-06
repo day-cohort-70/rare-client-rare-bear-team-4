@@ -1,10 +1,10 @@
 /* CreatePost.css */
-.create-post-container {
+.createPost-container {
     display: flex;
     justify-content: center;
     align-items: start;
     min-height: 100vh;
-    background-color: #a6d1b175;
+    background-color: #ffffff75;
     padding: 20px;
 }
 
