@@ -1,11 +1,12 @@
 # Rare: The Publishing Platform for the Discerning Writer
+_code written by Matt, Marceline, Syndey, and Nick AKA RARE BEARS_
+
+Rare Publishing is an online community for writers to share, save, and interact with works from authors in the Rare network. It provides a fun place for writers to get feedback on their artistic endeavors!
 
 ## Getting Started
 1. Install dependencies: `npm install`
 2. Run the code `npm start`
-<!-- TODO: Update the remaining steps if anything changes -->
-3. With the server also running, check that the login, register, and logout functionality is in working.
-4. This template is using [Bulma](https://bulma.io/documentation) for styling. Take a little bit of time to familiarize yourself with the framework if you would like to continue using it.
+3. Clone api repo https://github.com/day-cohort-70/rare-api-rare-bear-team-4
+4. With the server running, check that the login, register, and logout functionality is in working.
 
 
-<!-- TODO: Finish writing the readme -->
