@@ -100,6 +100,7 @@ export const PostDetails = ({token }) => {
           <div>
             <button className="btn-edit" onClick={() => {navigate(`/posts/${postId}/post-tags`)}}>Manage Tags</button>
           </div>
+          <div><button onClick={() => navigate(`/comments/${postId}`)}>View Comments</button></div>
             </section>
           </div>
       );
