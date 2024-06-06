@@ -1,5 +1,7 @@
+import { doGet, doPut } from "./AUTHBOSS";
+
 export const getAllPosts = async () => {
-    return await fetch("http://localhost:8088/posts?_expand=user&_expand=category").then(res => res.json())
+   return await doGet("http://localhost:8088/posts?_expand=user&_expand=category")
 }
 
 export const getUserPosts = async (userId) => {
@@ -46,23 +48,5 @@ export const deletePost = async (postId) => {
 
 export const updatePost = async (postId, postData) => {
     const url = `http://localhost:8088/posts/${postId}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData)
-        });
-
-        if (response.ok) {
-            const updatedPost = await response.json();
-            console.log(`Post with ID ${postId} has been successfully updated.`, updatedPost);
-        } else {
-            console.error(`Failed to update post with ID ${postId}. Status: ${response.status}`);
-        }
-    } catch (error) {
-        console.error(`Error occurred while updating post with ID ${postId}:`, error);
-    }
+    return await doPut(url, postData)
 }

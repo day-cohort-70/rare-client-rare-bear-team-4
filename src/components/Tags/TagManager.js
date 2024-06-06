@@ -29,9 +29,9 @@ export const TagManager = ({ allTags, setAllTags }) => {
 
     }
 
-    const handleDelete = (tag) => {
+    const handleDelete = async (tag) => {
         if (window.confirm('Are you sure you want to delete the "' + tag.label + '" tag?')) {
-            deleteTag(tag.id).then(() => {
+            await deleteTag(tag.id).then(() => {
                 // After successfully deleting the tag, refresh the categories list
                 getAllTags().then(setAllTags);
                 // Reload the page after updating the state
