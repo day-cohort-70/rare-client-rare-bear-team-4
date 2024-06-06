@@ -12,6 +12,7 @@ import { PostDetails } from "../components/posts/PostDetails.js"
 import { CategoryList } from "../components/categories/CategoryList.js"
 import { CreatePostTags } from "../components/PostTags/CreatePostTags.js"
 import { getAllTags } from "../managers/TagService.js"
+import { CommentsList } from "../components/Comments/PostComments.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
   const [allTags, setAllTags] = useState([])
@@ -53,6 +54,11 @@ export const ApplicationViews = ({ token, setToken }) => {
           </Route>
           <Route path="Edit/:postId" element={<Authorized token={token} />}/>
           <Route path="myposts" element={<UserPosts userPosts={userPosts} getAndSetUserPosts={getAndSetUserPosts}/>} />
+        </Route>
+
+        <Route path="/comments">
+          <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts}/>}/>
+          <Route path=":postId" element={<CommentsList/>}/>
         </Route>
         
         <Route path="/tag-manager" element={<TagManager setToken={setToken} allTags={allTags} setAllTags={setAllTags}/>}  />
