@@ -5,7 +5,7 @@ import "./tagManager.css"
 import { useNavigate } from "react-router-dom";
 
 export const TagManager = ({ allTags, setAllTags }) => {
-    const [newLabel, setNewLabel] = useState("")
+    const [newLabel, setNewLabel] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,19 +22,15 @@ export const TagManager = ({ allTags, setAllTags }) => {
         const savedTag = await saveTagToDatabase(newTag);
         if (savedTag) {
             setNewLabel("");
-            // Fetch the updated list of tags and update the state
             const updatedTags = await getAllTags();
             setAllTags(updatedTags);
         }
-
     }
 
     const handleDelete = (tag) => {
         if (window.confirm('Are you sure you want to delete the "' + tag.label + '" tag?')) {
             deleteTag(tag.id).then(() => {
-                // After successfully deleting the tag, refresh the categories list
                 getAllTags().then(setAllTags);
-                // Reload the page after updating the state
                 window.location.reload();
             }).catch(error => {
                 console.error("Failed to delete tag:", error);
@@ -54,23 +50,20 @@ export const TagManager = ({ allTags, setAllTags }) => {
                 <h1>Tags</h1>
             </section>
             <section className="fullPage">
-
                 <div className="tag-list">
-                    {allTags.map((item) => {
-                        return (
-                            <ul key={item.id} className="tag-card">
-                                <h2>{item.label}</h2>
-                                <button className="btn-delete" onClick={() => handleEdit(item)}>{'Edit Tag'}</button>
-                                <button className="btn-delete" onClick={() => handleDelete(item)}>
-                                    {'Delete Tag'}</button>
-                            </ul>
-                        );
-                    })}
+                    {allTags.map((item) => (
+                        <div key={item.id} className="tag-card">
+                            <h2>{item.label}</h2>
+                            <div>
+                                <button className="btn-edit" onClick={() => handleEdit(item)}>Edit Tag</button>
+                                <button className="btn-delete" onClick={() => handleDelete(item)}>Delete Tag</button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <section className="leftSection">
+                <section className="rightSection">
                     <form className="create-post-form" onSubmit={handleSave}>
                         <h2 className="card-title">Create New Tag</h2>
-
                         <div className="form-group">
                             <label></label>
                             <input type="text" value={newLabel} onChange={(event) => setNewLabel(event.target.value)} required />
@@ -82,5 +75,5 @@ export const TagManager = ({ allTags, setAllTags }) => {
                 </section>
             </section>
         </>
-    )
+    );
 }

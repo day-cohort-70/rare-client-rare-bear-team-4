@@ -1,1 +1,7 @@
 @import 'bulma/css/bulma.css';
+html {
+    background-color: #f0f0f0; /* Choose your desired background color */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}

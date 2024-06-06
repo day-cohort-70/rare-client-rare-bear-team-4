@@ -39,10 +39,11 @@ export const CreatePost = ({ token }) => {
     };
 
     return (
-        <div className="create-post-container">
+        <div className="createPost-container">
             <form className="create-post-form" onSubmit={handleSave}>
                 <h2 className="card-title">Create New Post</h2>
                 <div className="form-group">
+
                     <label>Title:</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 </div>
