@@ -1,12 +1,41 @@
-.post-item-header,
-.post-item {
+
+.page-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 20px;
+  margin: 0 20px;  /* Adds 20px margin to both left and right sides */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-item-header, .post-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .post-item-header {
-  font-size: x-large;
+  background-color: #eee;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.25em; /* Increase the font size for label titles */
 }
-  
+
+.post-item {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.post-item:hover {
+  background-color: #f0f0f0;
+}
+
+.post-item h2, .post-item-header h1 {
+  margin: 0;
+  text-align: center;
+}

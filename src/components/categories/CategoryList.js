@@ -42,8 +42,11 @@ export const CategoryList = () => {
     }
   }  
 
-  return (
-    <div className='full-page'>
+  return (<>
+  <section className="header-of-page">
+  <h1>Categories</h1>
+  </section>
+    <section className='fullPage'>
       <div className="category-list">
       {categories.map((category) => (
         <div key={category.id} className="category-card">
@@ -55,7 +58,7 @@ export const CategoryList = () => {
       ))}
 
       </div>
-      <section className="leftSection">
+      <section className="rightSection">
                 <form className="create-post-form" onSubmit={handleSave}>
                     <h2 className="card-title">Create New Category</h2>
                     <div className="form-group">
@@ -67,6 +70,8 @@ export const CategoryList = () => {
                 </div>
                 </form>
             </section>
-    </div>
+    </section>
+    </>
   );
+ 
 };
