@@ -15,6 +15,7 @@ import { getAllTags } from "../managers/TagService.js"
 import EditTagForm from "../components/Tags/EditTagForm.js"
 
 import { CommentsList } from "../components/Comments/PostComments.js"
+import { Homepage } from "../components/nav/homepage.js"
 
 export const ApplicationViews = ({ token, setToken }) => {
   const [allTags, setAllTags] = useState([])
@@ -47,6 +48,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/login" element={<Login setToken={setToken} />} />
       <Route path="/register" element={<Register setToken={setToken} />} />
       <Route element={<Authorized token={token} />}>
+        <Route index element={<Homepage/>} />
 
         <Route path="/posts">
           <Route index element={<AllPosts allPosts={allPosts} getAndSetAllPosts={getAndSetAllPosts} />} />
