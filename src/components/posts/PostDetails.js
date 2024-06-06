@@ -11,7 +11,9 @@ export const PostDetails = ({token }) => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [poster, setPoster] = useState({});
+
     const navigate = useNavigate()
+    //get and set this individual post
     useEffect(() => {
         getPostByPostId(postId).then((data) => {
             setPost(data);
@@ -19,12 +21,24 @@ export const PostDetails = ({token }) => {
     }, [postId, token]);
 
 
+
+    //get the and set the user that posted this post
     useEffect(() => {
         getUserById(post.user_id).then((userObj) => {
             setPoster(userObj);
         });
 
     }, [post]);
+
+    //get and set the post tags
+    const getAndSetPostTags = async() => {
+      await getPostPostTags(postId).then((res)=> {
+        setPostPostTags(res)
+      })
+    }
+    useEffect(() => {
+      getAndSetPostTags()
+    }, [post])
 
     // Check if the current user is the poster of the post
    // const isUserPoster = token === post?.user_id;
@@ -76,10 +90,20 @@ export const PostDetails = ({token }) => {
           <button className="btn-edit">
             <i className="fa fa-edit"></i> Edit
           </button>
-          <button onClick={() => navigate(`/comments/${postId}`)}>View Comments</button>
-        </div>
-          </section>
-          
-        </div>
+          </div>
+          <div className="post-details-tag-section">
+                  {postPostTags.map((tag) => {
+                    return (
+                      <div key={tag.id} className="post-tag-item">
+                        {tag.tag.tagLabel}
+                      </div>
+                    )
+                  })}
+          </div>
+          <div>
+            <button className="btn-edit" onClick={() => {navigate(`/posts/${postId}/post-tags`)}}>Manage Tags</button>
+          </div>
+            </section>
+          </div>
       );
 };
