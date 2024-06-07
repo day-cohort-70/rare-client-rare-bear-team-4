@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./posts.css"
+import { useEffect } from "react";
 
 
-export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
+export const AllPosts = ({allPosts}) => {
 
     const sortedPosts = allPosts.sort((a, b) => {
         const dateA = new Date(a.publicationDate);
@@ -17,6 +18,8 @@ export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
         navigate(`/posts/${postId}`); 
     };
 
+
+
     return (
         <div className="page-container">
             <section className="header-of-page">
@@ -27,7 +30,7 @@ export const AllPosts = ({allPosts, getAndSetAllPosts}) => {
                 <h1>Author</h1>
                 <h1>Category</h1>
             </div>
-            {allPosts.map((post) => {
+            {sortedPosts.map((post) => {
                 const publicationDate = new Date(post.publicationDate)
                 return post.approved && publicationDate < today ? (
                     <div key={post.id} className="post-item" onClick={() => handleClick(post.id)}>

@@ -4,7 +4,7 @@ import { getAllCategories } from "../../managers/CategoryManager";
 import { postPost } from "../../managers/PostManager";
 import "./CreatePost.css"; // Import the CSS file
 
-export const CreatePost = ({ token }) => {
+export const CreatePost = ({ token, getAndSetAllPosts, getAndSetUserPosts }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
@@ -30,10 +30,12 @@ export const CreatePost = ({ token }) => {
             user_id: parseInt(token) 
         };
         
-        const savedPost = await postPost(newPost);
-    console.log(savedPost)
+        const savedPost = await postPost(newPost)
+
     
         if (savedPost) {
+            getAndSetUserPosts()
+            getAndSetAllPosts()
             navigate(`/posts/${savedPost.new_post_id}`);
         }
     };

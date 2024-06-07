@@ -1,43 +1,24 @@
-export const getAllTags = () => {
-    return fetch("http://localhost:8088/tags").then((res) => res.json())
-}
-export const fetchTagByID = (tagId, tagDate) => {
-    return fetch(`http://localhost:8088/tags/${tagId}`).then((res) => res.json())
-}
+import { doDelete, doGet, doGetOne, doPost, doPut } from "./AUTHBOSS"
 
-export const saveTagToDatabase = (post) => {
-    return fetch(`http://localhost:8088/tags`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(post)
-    }).then((res) => res.json())
+export const getAllTags = async () => {
+    return await doGet("http://localhost:8088/tags")
+}
+export const fetchTagByID = async (tagId) => {
+    const url =`http://localhost:8088/tags/${tagId}`
+    return await doGetOne(url)
 }
 
-export const deleteTag = (tagId) => {
-    return fetch(`http://localhost:8088/tags/${tagId}`, {
-        method: 'DELETE',
-    })
-   .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        // Assuming the server returns a 204 No Content on success
-        return res.status === 204;
-    })
-   .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-};
+export const saveTagToDatabase = async (post) => {
+    const url = `http://localhost:8088/tags`
+    return await doPost(url, post)
+}
 
+export const deleteTag = async (tagId) => {
+    const url = `http://localhost:8088/tags/${tagId}`
+    return await doDelete(url)
+}
 
-
-
-    export const updateTag = (tagId, tag_data) => {
-        return fetch(`http://localhost:8088/tags/${tagId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(tag_data)
-        })
-    }
+export const updateTag = async (tagId, tag_data) => {
+    const url = `http://localhost:8088/tags/${tagId}`
+    return await doPut(url, tag_data)
+}

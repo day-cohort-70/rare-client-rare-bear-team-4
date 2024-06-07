@@ -1,26 +1,21 @@
+import { doDelete, doGet, doPost } from "./AUTHBOSS"
+
 export const postNewPostTag = async (postTagData) => {
-    return await fetch("http://localhost:8088/post-tags", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify(postTagData)
-    })
+    const url ="http://localhost:8088/post-tags"
+    return await doPost(url, postTagData)
 }
 
 export const getPostPostTags = async (postId) => {
-    return await fetch(`http://localhost:8088/post-tags?_postId=${postId}&_expand=tag`).then(res => res.json())
+    const url = `http://localhost:8088/post-tags?_postId=${postId}&_expand=tag`
+    return await doGet(url)
 }
 
 export const getAllPostTags = async () => {
-    return await fetch("http://localhost:8088/post-tags").then(res => res.json())
+    const url ="http://localhost:8088/post-tags"
+    return await doGet(url)
 }
 
 export const deletePostTag = async (postTagId) => {
-    return await fetch(`http://localhost:8088/post-tags/${postTagId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    const url = `http://localhost:8088/post-tags/${postTagId}`
+    return await doDelete(url)
 }
