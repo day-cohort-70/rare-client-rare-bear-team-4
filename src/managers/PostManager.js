@@ -1,4 +1,4 @@
-import { doGet, doPost, doPut } from "./AUTHBOSS";
+import { doDelete, doGet, doGetOne, doPost, doPut } from "./AUTHBOSS";
 
 export const getAllPosts = async () => {
    return await doGet("http://localhost:8088/posts?_expand=user&_expand=category")
@@ -15,29 +15,14 @@ export const postPost = async (post) => {
 };
 
 export const getPostByPostId = (postId) => {
-    return fetch(`http://localhost:8088/posts/${postId}`).then((res) => res.json())
+    const url = `http://localhost:8088/posts/${postId}`
+    return doGetOne(url)
 }
 
 
 export const deletePost = async (postId) => {
-    const url = `http://localhost:8088/posts/${postId}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (response.ok) {
-            console.log(`Post with ID ${postId} has been successfully deleted.`);
-        } else {
-            console.error(`Failed to delete post with ID ${postId}. Status: ${response.status}`);
-        }
-    } catch (error) {
-        console.error(`Error occurred while deleting post with ID ${postId}:`, error);
-    }
+    const url = `http://localhost:8088/posts/${postId}`
+    return await doDelete(url)
 }
 
 
