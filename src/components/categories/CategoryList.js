@@ -24,8 +24,6 @@ export const CategoryList = () => {
       // Fetch the updated list of tags and update the state
       const updatedCategories = await getAllCategories();
       setCategories(updatedCategories);
-      // Reload the page after updating the state
-      window.location.reload();
     }
   }  
 

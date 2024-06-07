@@ -1,10 +1,11 @@
-import { doDelete, doGet, doPost, doPut } from "./AUTHBOSS"
+import { doDelete, doGet, doGetOne, doPost, doPut } from "./AUTHBOSS"
 
 export const getAllTags = async () => {
     return await doGet("http://localhost:8088/tags")
 }
-export const fetchTagByID = (tagId, tagDate) => {
-    return fetch(`http://localhost:8088/tags/${tagId}`).then((res) => res.json())
+export const fetchTagByID = async (tagId) => {
+    const url =`http://localhost:8088/tags/${tagId}`
+    return await doGetOne(url)
 }
 
 export const saveTagToDatabase = async (post) => {

@@ -2,6 +2,10 @@ export const doGet = async (url) => {
     return await fetch(url).then(res => res.json())
 }
 
+export const doGetOne = async (url) => {
+    return await fetch(url).then(res => res.json())
+}
+
 export const doPut = async (url, body) => {
     const response = await fetch(url, {
         method: 'PUT',
