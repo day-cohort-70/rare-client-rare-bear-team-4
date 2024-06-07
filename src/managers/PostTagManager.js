@@ -1,11 +1,8 @@
+import { doPost } from "./AUTHBOSS"
+
 export const postNewPostTag = async (postTagData) => {
-    return await fetch("http://localhost:8088/post-tags", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify(postTagData)
-    })
+    const url ="http://localhost:8088/post-tags"
+    return await doPost(url, postTagData)
 }
 
 export const getPostPostTags = async (postId) => {

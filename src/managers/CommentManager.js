@@ -1,8 +1,10 @@
-// CommentManager.js
 
-export const getCommentsByPostId = (postId) => {
+import { doGetOne } from "./AUTHBOSS";
+
+export const getCommentsByPostId = async (postId) => {
   try {
-    return fetch(`http://localhost:8088/posts/${postId}/comments`).then(res => res.json());
+    const url = `http://localhost:8088/posts/${postId}/comments`
+    return await doGetOne(url)
   } catch (error) {
     console.error(error.message);
     return [];
