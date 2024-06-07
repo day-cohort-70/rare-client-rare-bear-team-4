@@ -6,12 +6,16 @@ import './CategoryList.css';
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [newLabel, setNewLabel] = useState("")
-  useEffect(() => {
-    getAllCategories().then(catObjs => {
+
+  const getAndSetAllCats = () => {
+      getAllCategories().then(catObjs => {
       const sortedCategories = catObjs.sort((a, b) => a.label.localeCompare(b.label));
       setCategories(sortedCategories);
     });
-  }, []);
+  }
+  useEffect(() => {
+    getAndSetAllCats()
+   }, []);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -21,9 +25,8 @@ export const CategoryList = () => {
     const savedCategory = await saveCategoriesToDatabase(newPost);
     if (savedCategory) {
       setNewLabel("");
-      // Fetch the updated list of tags and update the state
-      const updatedCategories = await getAllCategories();
-      setCategories(updatedCategories);
+      getAndSetAllCats()
+
     }
   }  
 
