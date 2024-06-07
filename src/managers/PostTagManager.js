@@ -1,4 +1,4 @@
-import { doPost } from "./AUTHBOSS"
+import { doDelete, doGet, doPost } from "./AUTHBOSS"
 
 export const postNewPostTag = async (postTagData) => {
     const url ="http://localhost:8088/post-tags"
@@ -6,18 +6,16 @@ export const postNewPostTag = async (postTagData) => {
 }
 
 export const getPostPostTags = async (postId) => {
-    return await fetch(`http://localhost:8088/post-tags?_postId=${postId}&_expand=tag`).then(res => res.json())
+    const url = `http://localhost:8088/post-tags?_postId=${postId}&_expand=tag`
+    return await doGet(url)
 }
 
 export const getAllPostTags = async () => {
-    return await fetch("http://localhost:8088/post-tags").then(res => res.json())
+    const url ="http://localhost:8088/post-tags"
+    return await doGet(url)
 }
 
 export const deletePostTag = async (postTagId) => {
-    return await fetch(`http://localhost:8088/post-tags/${postTagId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    const url = `http://localhost:8088/post-tags/${postTagId}`
+    return await doDelete(url)
 }
