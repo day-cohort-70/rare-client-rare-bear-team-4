@@ -4,7 +4,7 @@ import { deletePost, getPostByPostId } from "../../managers/PostManager.js";
 import { getUserById } from "../../managers/UserManager.js";
 import "./PostDetails.css"
 import { getPostPostTags } from "../../managers/PostTagManager.js";
-export const PostDetails = ({token }) => {
+export const PostDetails = ({token, getAndSetAllPosts, getAndSetUserPosts }) => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [poster, setPoster] = useState({});
@@ -40,10 +40,12 @@ export const PostDetails = ({token }) => {
     // Check if the current user is the poster of the post
    // const isUserPoster = token === post?.user_id;
 
-    const handleDeletePost = (postId) => {
+    const handleDeletePost = async (postId) => {
         if (window.confirm("Are you sure you want to delete this post? This action cannot be undone.")) {
-            deletePost(postId)
+            await deletePost(postId)
                 .then(() => {
+                  getAndSetAllPosts()
+                  getAndSetUserPosts()
                     // Redirect to the Post list after successful deletion
                     navigate("/posts");
                 })
