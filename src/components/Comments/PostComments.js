@@ -9,10 +9,12 @@ export const CommentsList = () => {
   const [comments, setComments] = useState([]);
   const [post, setPost] = useState({});
 
+  //Gets comments to fill out each card
   useEffect(() => {
     getCommentsByPostId(postId).then(setComments);
   }, [postId]);
 
+  //Gets post info to display title at top of page 
   useEffect(() => {
     getPostByPostId(postId).then((data) => {
         setPost(data);
@@ -21,9 +23,9 @@ export const CommentsList = () => {
 
   return (
     <div className={styles.container}>
-      <h2>{post?.title}</h2>
-      <h2 className={styles.postTitle}>Post Title</h2>
+      <h1 className={styles.postTitle}>{post?.title}</h1>
       <a href={`/posts/${postId}`} className={styles.backLink}>Back to Post</a>
+      {/*Section below to load a card for each comment */}
       {comments.map(comment => (
         <div key={comment.id} className={styles.commentCard}>
           <strong className={styles.commentSubject}>{comment.subject}</strong>
@@ -32,6 +34,7 @@ export const CommentsList = () => {
           <small className={styles.commentCreationDate}>{comment.creation_date}</small>
         </div>
       ))}
+
     </div>
   );
 };
